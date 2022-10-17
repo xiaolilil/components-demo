@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+#app {
+  height: 100%;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+}
+button {
+  background-color: transparent;
+  border: 0;
+}
+input {
+  outline: 0;
+}
+li {
+  list-style: none;
+}
+
+.out {
+  outline: 2px solid red;
+}
+.out2 {
+  outline: 2px solid blue;
+}
+.out3 {
+  outline: 2px solid cornflowerblue;
+}
