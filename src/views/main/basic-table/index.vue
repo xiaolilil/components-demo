@@ -1,10 +1,10 @@
 <template>
   <div class="table">
-    <Form :form-items="[]">
+    <Form :data="formData">
       <template #footer>
         <div class="btns">
-          <el-button type="info">重置</el-button>
-          <el-button type="primary">搜索</el-button>
+          <el-button type="info" @click="handleReset">重置</el-button>
+          <el-button type="primary" @click="handleQuery">搜索</el-button>
         </div>
       </template>
     </Form>
@@ -47,8 +47,46 @@ import Form from '@/components/form/form.vue'
 // 表格相关配置
 import { tableConfig } from './config/content.config'
 import { dialogConfig } from './config/dialog.config'
+import { searchFormConfig } from './config/search.config'
 
 import { useDialog } from '@/hooks/useDialog'
+
+import { reactive, ref } from 'vue'
+
+const formData = reactive({
+  labelWidth: '120px',
+  items: [
+    {
+      label: '测试',
+      prop: 'name',
+      type: 'input',
+      width: '200px',
+      placeholder: '请输入姓名',
+    },
+    {
+      label: '状态',
+      prop: 'state',
+      type: 'select',
+      width: '200px',
+      placeholder: '请选择状态',
+      options: [
+        { label: '在线', value: 'true' },
+        { label: '下线', value: 'false' },
+      ],
+    },
+    {
+      label: '开关',
+      prop: 'open',
+      type: 'switch',
+    },
+    {
+      label: '活动',
+      prop: 'activies',
+      type: 'checkbox',
+      placeholder: '请选择活动',
+    },
+  ],
+})
 
 // 表格数据
 const tableData = [
@@ -79,6 +117,14 @@ const { title, defaultInfo, dialogRef, handleAddData, handleEditData } =
 
 const handDelete = (obj: object) => {
   console.log('obj', obj)
+}
+
+const handleQuery = () => {
+  console.log('1111', 1111)
+}
+
+const handleReset = () => {
+  console.log('233', 233)
 }
 </script>
 
