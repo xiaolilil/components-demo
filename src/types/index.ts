@@ -1,6 +1,7 @@
 export interface IDateType {
-  dataCount: any[]
+  dataCount: number[]
   currYear: number
   currMonth: number
   currDay: number
+  signInList: any[]
 }

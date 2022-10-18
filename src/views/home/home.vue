@@ -24,6 +24,7 @@ import { NavTop, Menu } from '@/layout'
   .content {
     flex: 1;
     background: #f9f9f9;
+    padding: 20px;
   }
 }
 </style>

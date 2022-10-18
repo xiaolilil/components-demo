@@ -146,10 +146,10 @@
   "resolved" "https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.186.tgz"
   "version" "4.14.186"
 
-"@types/node@*", "@types/node@^18.11.0":
-  "integrity" "sha512-IOXCvVRToe7e0ny7HpT/X9Rb2RYtElG1a+VshjwT00HxrM2dWBApHQoqsI6WiY7Q03vdf2bCrIGzVrkF/5t10w=="
-  "resolved" "https://registry.npmmirror.com/@types/node/-/node-18.11.0.tgz"
-  "version" "18.11.0"
+"@types/node@*", "@types/node@^18.7.18":
+  "integrity" "sha512-m+6nTEOadJZuTPkKR/SYK3A2d7FZrgElol9UP1Kae90VVU4a6mxnPuLiIW1m4Cq4gZ/nWb9GrdVXJCoCazDAbg=="
+  "resolved" "https://registry.npmmirror.com/@types/node/-/node-18.7.18.tgz"
+  "version" "18.7.18"
 
 "@types/web-bluetooth@^0.0.16":
   "integrity" "sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ=="
