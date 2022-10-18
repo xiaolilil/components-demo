@@ -7,12 +7,22 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BasicTable: typeof import('./src/components/basic-table/basic-table.vue')['default']
+    Calendar: typeof import('./src/components/calendar/calendar.vue')['default']
+    Dialog: typeof import('./src/components/dialog/dialog.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
+    ElPopover: typeof import('element-plus/es')['ElPopover']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    Form: typeof import('./src/components/form/form.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    LgProgress: typeof import('./src/components/lg-progress/lg-progress.vue')['default']
     NavTop: typeof import('./src/components/nav-top/nav-top.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

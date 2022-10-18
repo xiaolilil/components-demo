@@ -11,8 +11,10 @@
       text-color="#fff"
     >
       <el-menu-item index="1">
-        <el-icon><setting /></el-icon>
-        <template #title>日历签到</template>
+        <span @click="changeView('calendar')">日历签到</span>
+      </el-menu-item>
+      <el-menu-item index="2">
+        <span @click="changeView('basic-table')">基础表格</span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -20,6 +22,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import {
   Document,
   Menu as IconMenu,
@@ -27,12 +30,17 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 
+const router = useRouter()
 const isCollapse = ref(false)
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
 const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
+}
+
+const changeView = (path: string) => {
+  router.push('/home/' + path)
 }
 </script>
 

@@ -19,12 +19,23 @@
         <template v-for="i in state.dataCount" :key="i">
           <div class="day">
             <div>
-              <span
-                @click="signIn(i)"
-                class="item"
-                :class="isCurrDate(i) ? 'active' : ''"
-                >{{ filterDay(i) }} <i class="dot" v-show="isShowDot(i)"></i>
-              </span>
+              <el-popover
+                placement="top"
+                :width="50"
+                trigger="click"
+                content="签到成功"
+                :auto-close="100"
+              >
+                <template #reference>
+                  <span
+                    @click="signIn(i)"
+                    class="item"
+                    :class="isCurrDate(i) ? 'active' : ''"
+                    >{{ filterDay(i) }}
+                    <i class="dot" v-show="isShowDot(i)"></i>
+                  </span>
+                </template>
+              </el-popover>
             </div>
           </div>
         </template>
@@ -53,7 +64,6 @@ const state = reactive<IDateType>({
   currMonth: 0,
   currDay: 0,
   signInList: [
-    { id: 1, date: '2022-10-18' },
     { id: 2, date: '2022-10-1' },
     { id: 3, date: '2022-10-8' },
   ],

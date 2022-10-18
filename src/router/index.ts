@@ -14,13 +14,19 @@ const routes: RouteRecordRaw[] = [
     name: 'home',
     meta: { title: '首页' },
     component: () => import('@/views/home/home.vue'),
-    redirect: '/home/calendar',
+    redirect: '/home/basic-table',
     children: [
       {
         path: 'calendar',
         name: 'calendar',
         meta: { title: '日历' },
-        component: () => import('@/views/main/calendar/calendar.vue'),
+        component: () => import('@/views/main/calendar/index.vue'),
+      },
+      {
+        path: 'basic-table',
+        name: 'basic-table',
+        meta: { title: '基础表格' },
+        component: () => import('@/views/main/basic-table/index.vue'),
       },
     ],
   },
@@ -41,14 +47,14 @@ const router = createRouter({
   },
 })
 
-router.beforeEach(async (to, from) => {
-  // if (to.path !== '/login') {
-  // const token = LocalCache.getCache('coderwhyToken')
-  // if (!token) {
-  //   return '/login'
-  // }
-  // }
-})
+// router.beforeEach(async (to, from) => {
+// if (to.path !== '/login') {
+// const token = LocalCache.getCache('coderwhyToken')
+// if (!token) {
+//   return '/login'
+// }
+// }
+// })
 
 // config router
 // 配置路由器
