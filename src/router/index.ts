@@ -14,7 +14,7 @@ const routes: RouteRecordRaw[] = [
     name: 'home',
     meta: { title: '首页' },
     component: () => import('@/views/home/home.vue'),
-    redirect: '/home/basic-table',
+    redirect: '/home/form',
     children: [
       {
         path: 'calendar',
@@ -27,6 +27,18 @@ const routes: RouteRecordRaw[] = [
         name: 'basic-table',
         meta: { title: '基础表格' },
         component: () => import('@/views/main/basic-table/index.vue'),
+      },
+      {
+        path: 'scroll-list',
+        name: 'scroll-list',
+        meta: { title: '滚轮列表' },
+        component: () => import('@/views/main/scroll-list/index.vue'),
+      },
+      {
+        path: 'form',
+        name: 'form',
+        meta: { title: '基础表单' },
+        component: () => import('@/views/main/form/index.vue'),
       },
     ],
   },

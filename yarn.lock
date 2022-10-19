@@ -1455,6 +1455,11 @@
   "resolved" "https://registry.npmjs.org/vue-demi/-/vue-demi-0.12.5.tgz"
   "version" "0.12.5"
 
+"vue-list-auto-scroll-tsc@^1.0.2":
+  "integrity" "sha512-z6GpJEeXdbrD9f781nkq0sebxkNsPOaqdWMg9mc/neMl1rUYXVeXpiqzIy4Egv7StekugId28RvqQxf68rgwvw=="
+  "resolved" "https://registry.npmmirror.com/vue-list-auto-scroll-tsc/-/vue-list-auto-scroll-tsc-1.0.2.tgz"
+  "version" "1.0.2"
+
 "vue-router@4":
   "integrity" "sha512-IsvoF5D2GQ/EGTs/Th4NQms9gd2NSqV+yylxIyp/OYp8xOwxmU8Kj/74E9DTSYAyH5LX7idVUngN3JSj1X4xcQ=="
   "resolved" "https://registry.npmjs.org/vue-router/-/vue-router-4.1.5.tgz"

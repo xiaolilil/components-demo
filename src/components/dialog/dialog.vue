@@ -13,6 +13,7 @@
         v-model="dialogData"
         :form-width="formWidth"
       ></search-form> -->
+      <Form :data="dialogConfig"></Form>
       <slot></slot>
       <template #footer>
         <span class="dialog-footer">
@@ -26,14 +27,12 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import Form from '@/components/form/form.vue'
+import { ISearchForm } from '@/types'
 const props = withDefaults(
   defineProps<{
     title: string
-    dialogConfig: {
-      formItems: any[]
-      colLayout?: number | any
-      itemStyle?: object
-    }
+    dialogConfig: ISearchForm
     defaultInfo?: any
   }>(),
   {},

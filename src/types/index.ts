@@ -27,3 +27,8 @@ export interface IForm {
   colLayout?: any
   itemStyle?: any
 }
+
+export interface ISearchForm {
+  labelWidth?: string
+  items: any[]
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="table">
-    <Form :data="formData">
+    <Form :data="formConfig">
       <template #footer>
         <div class="btns">
           <el-button type="info" @click="handleReset">重置</el-button>
@@ -36,7 +36,8 @@
     </basic-table>
   </div>
 
-  <Dialog ref="dialogRef" :title="title" :dialog-config="dialogConfig"></Dialog>
+  <Dialog ref="dialogRef" :title="title" :dialog-config="dialogConfig">
+  </Dialog>
 </template>
 
 <script lang="ts" setup>
@@ -48,6 +49,7 @@ import Form from '@/components/form/form.vue'
 import { tableConfig } from './config/content.config'
 import { dialogConfig } from './config/dialog.config'
 import { searchFormConfig } from './config/search.config'
+import { formConfig } from './config/form.config'
 
 import { useDialog } from '@/hooks/useDialog'
 
@@ -84,6 +86,55 @@ const formData = reactive({
       prop: 'activies',
       type: 'checkbox',
       placeholder: '请选择活动',
+      groups: [
+        { label: 'k歌', value: 'k歌' },
+        { label: '看电影', value: '看电影' },
+        { label: '打球', value: '打球' },
+      ],
+    },
+    {
+      label: '单选测试',
+      prop: 'singl',
+      type: 'radio',
+      groups: [
+        { label: '单选a', value: 'a' },
+        { label: '单选b', value: 'b' },
+      ],
+    },
+    {
+      label: '文本域描述',
+      prop: 'desc',
+      type: 'textarea',
+      width: '300px',
+      placeholder: '请填写描述',
+    },
+    {
+      label: '日期',
+      prop: 'date',
+      type: 'date',
+      width: '300px',
+      placeholder: '请选择日期',
+    },
+    {
+      label: '时间范围',
+      prop: 'dobiletime',
+      type: 'time',
+      span: 12,
+      placeholder: '请选择时间范围',
+    },
+    {
+      label: '时间',
+      prop: 'time',
+      type: 'time',
+      span: 12,
+      placeholder: '请选择时间',
+    },
+    {
+      label: '日期时间',
+      prop: 'datetime',
+      type: 'datetime',
+      span: 12,
+      placeholder: '请选择日期时间',
     },
   ],
 })

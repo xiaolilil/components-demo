@@ -1,7 +1,7 @@
 <template>
   <div class="form">
     <div class="header">
-      <slot name="header"></slot>
+      <slot name="header">表单组件</slot>
     </div>
 
     <el-form ref="formRef" :label-width="data.labelWidth">
@@ -37,60 +37,65 @@
           v-model="formData[v.prop]"
           v-if="v.type == 'checkbox'"
         >
-          <el-checkbox label="Online activities" name="type" />
-          <el-checkbox label="Promotion activities" name="type" />
-          <el-checkbox label="Offline activities" name="type" />
-          <el-checkbox label="Simple brand exposure" name="type" />
+          <el-checkbox
+            v-for="g in v.groups"
+            :key="g.label"
+            :label="g.label"
+            name="type"
+          />
         </el-checkbox-group>
-      </el-form-item>
 
-      <!-- <el-row>
-        <template v-for="i in formItems" :key="i.label">
-          <el-col>
-            <el-form-item
-              v-if="!i.isHidden"
-              :label="i.label"
-              :rules="i.rules"
-              class="form-item"
-              :style="itemStyle"
-            >
-              <template v-if="i.type === 'input' || i.type === 'password'">
-                <el-input
-                  v-bind="i.otherOptions"
-                  :model-value="modelValue(`${i.field}`)"
-                  :placeholder="i.placeholder"
-                  :show-password="i.type === 'password'"
-                  @update:model-value="updataVal($event, i.field)"
-                />
-              </template>
-              <template v-else-if="i.type === 'select'">
-                <el-select
-                  :model-value="modelValue(`${i.field}`)"
-                  :placeholder="i.placeholder"
-                  v-bind="i.otherOptions"
-                  style="width: 100%"
-                  @update:model-value="updataVal($event, i.field)"
-                >
-                  <el-option
-                    v-for="option in i.options"
-                    :key="option.value"
-                    :value="option.value"
-                  >
-                    {{ option.label }}
-                  </el-option>
-                </el-select>
-              </template>
-              <template v-else-if="i.type === 'datepicker'">
-                <el-date-picker
-                  v-bind="i.otherOptions"
-                  :model-value="modelValue(`${i.field}`)"
-                  @update:model-value="updataVal($event, i.field)"
-                ></el-date-picker>
-              </template>
-            </el-form-item>
-          </el-col>
-        </template>
-      </el-row> -->
+        <el-radio-group v-model="formData[v.prop]" v-if="v.type == 'radio'">
+          <el-radio :label="r.label" v-for="r in v.groups" :key="r.label" />
+        </el-radio-group>
+
+        <el-input
+          type="textarea"
+          :label="v.label"
+          v-model="formData[v.prop]"
+          :placeholder="v.placeholder"
+          :style="{ width: v.width }"
+          v-if="v.type == 'textarea'"
+        />
+
+        <el-cascader
+          :label="v.label"
+          v-model="formData[v.prop]"
+          :options="v.options"
+          :placeholder="v.placeholder"
+          @change="handleChange"
+          v-if="v.type == 'cascader'"
+        />
+
+        <el-date-picker
+          :label="v.label"
+          v-model="formData[v.prop]"
+          type="date"
+          :placeholder="v.placeholder"
+          style="width: 100%"
+          v-if="v.type == 'date'"
+        />
+
+        <el-col :span="v.span">
+          <el-time-picker
+            :label="v.label"
+            v-model="formData[v.prop]"
+            :placeholder="v.placeholder"
+            v-if="v.type == 'time'"
+            :is-range="v.isRange"
+          />
+        </el-col>
+
+        <el-col :span="v.span">
+          <el-date-picker
+            :label="v.label"
+            v-model="formData[v.prop]"
+            :placeholder="v.placeholder"
+            type="datetime"
+            v-if="v.type == 'datetime'"
+          />
+        </el-col>
+      </el-form-item>
     </el-form>
 
     <div class="footer">
@@ -100,55 +105,58 @@
 </template>
 
 <script lang="ts" setup>
-import { IFormItem } from '@/types'
+import { IFormItem, ISearchForm } from '@/types'
 import { reactive } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    modelValue?: any
+    // modelValue?: any
     // formItems: IFormItem[]
     labelWidth?: string
-    itemStyle?: object
-    colLayout?: object
-    formWidth?: number
-    data: any
+    // itemStyle?: object
+    // colLayout?: object
+    // formWidth?: number
+    data: ISearchForm
   }>(),
   {
-    labelWidth: '100px',
-    itemStyle: () => {
-      return { padding: '10px 10px' }
-    },
-    colLayout: () => {
-      return {
-        xl: 6,
-        lg: 8,
-        md: 12,
-        sm: 24,
-        xs: 24,
-      }
-    },
+    // labelWidth: '100px',
+    // itemStyle: () => {
+    //   return { padding: '10px 10px' }
+    // },
+    // colLayout: () => {
+    //   return {
+    //     xl: 6,
+    //     lg: 8,
+    //     md: 12,
+    //     sm: 24,
+    //     xs: 24,
+    //   }
+    // },
   },
 )
 
 const formData = reactive({
-  name: '',
-  date: '',
-  address: '',
+  // name: '',
+  // date: '',
+  // address: '',
 })
 
 const emit = defineEmits(['update:modelValue', 'queryForm', 'resetForm'])
 
 // 更新数据触发的事件
-const updataVal = (val: any, field: string) => {
-  emit('update:modelValue', { ...props.modelValue, [field]: val })
-}
+// const updataVal = (val: any, field: string) => {
+//   emit('update:modelValue', { ...props.modelValue, [field]: val })
+// }
+
+const handleChange = () => {}
 </script>
 
 <style lang="less" scoped>
 .form {
   width: 100%;
-  height: 200px;
-  box-shadow: 0 0 10px #ddd;
+  // height: 200px;
+  padding-bottom: 50px;
+  background-color: #fff;
   position: relative;
   .header {
     line-height: 60px;
@@ -156,6 +164,7 @@ const updataVal = (val: any, field: string) => {
   }
   .footer {
     width: 100%;
+    margin-left: 50%;
   }
 }
 </style>

@@ -1,9 +1,10 @@
-import { IForm } from '@/types'
+import { ISearchForm } from '@/types'
 
-export const dialogConfig: IForm = {
-  formItems: [
+export const dialogConfig: ISearchForm = {
+  labelWidth: '120px',
+  items: [
     {
-      field: 'name',
+      prop: 'name',
       type: 'input',
       label: '姓名',
       placeholder: '请输入姓名',
@@ -15,8 +16,4 @@ export const dialogConfig: IForm = {
       placeholder: '请输入手机号',
     },
   ],
-  colLayout: {
-    span: 24,
-  },
-  itemStyle: {},
 }

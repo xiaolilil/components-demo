@@ -16,6 +16,12 @@
       <el-menu-item index="2">
         <span @click="changeView('basic-table')">基础表格</span>
       </el-menu-item>
+      <el-menu-item index="3">
+        <span @click="changeView('scroll-list')">滚动列表</span>
+      </el-menu-item>
+      <el-menu-item index="4">
+        <span @click="changeView('form')">基础表单</span>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>

@@ -25,6 +25,8 @@ import { NavTop, Menu } from '@/layout'
     flex: 1;
     background: #f9f9f9;
     padding: 20px;
+
+    overflow-y: auto;
   }
 }
 </style>
