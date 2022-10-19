@@ -31,4 +31,6 @@ export interface IForm {
 export interface ISearchForm {
   labelWidth?: string
   items: any[]
+  btns?: any[]
+  rules?: any
 }

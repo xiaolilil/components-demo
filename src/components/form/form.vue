@@ -4,7 +4,12 @@
       <slot name="header">表单组件</slot>
     </div>
 
-    <el-form ref="formRef" :label-width="data.labelWidth">
+    <el-form
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      :label-width="data.labelWidth"
+    >
       <el-form-item
         :label="v.label"
         :prop="v.prop"
@@ -40,13 +45,15 @@
           <el-checkbox
             v-for="g in v.groups"
             :key="g.label"
-            :label="g.label"
+            :label="g.value"
             name="type"
           />
         </el-checkbox-group>
 
         <el-radio-group v-model="formData[v.prop]" v-if="v.type == 'radio'">
-          <el-radio :label="r.label" v-for="r in v.groups" :key="r.label" />
+          <el-radio :label="r.value" v-for="r in v.groups" :key="r.label">{{
+            r.label
+          }}</el-radio>
         </el-radio-group>
 
         <el-input
@@ -74,6 +81,8 @@
           :placeholder="v.placeholder"
           style="width: 100%"
           v-if="v.type == 'date'"
+          :format="v.format"
+          :value-format="v.format"
         />
 
         <el-col :span="v.span">
@@ -83,6 +92,8 @@
             :placeholder="v.placeholder"
             v-if="v.type == 'time'"
             :is-range="v.isRange"
+            :format="v.format"
+            :value-format="v.format"
           />
         </el-col>
 
@@ -93,8 +104,20 @@
             :placeholder="v.placeholder"
             type="datetime"
             v-if="v.type == 'datetime'"
+            :format="v.format"
+            :value-format="v.format"
           />
         </el-col>
+      </el-form-item>
+
+      <el-form-item>
+        <el-button
+          :type="v.type"
+          @click="handleClick(formRef, v.event, v.cbFn)"
+          v-for="(v, i) in data.btns"
+          :key="i"
+          >{{ v.label }}</el-button
+        >
       </el-form-item>
     </el-form>
 
@@ -106,7 +129,11 @@
 
 <script lang="ts" setup>
 import { IFormItem, ISearchForm } from '@/types'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
+import type { FormInstance, ElForm } from 'element-plus'
+
+// const formRef = ref<InstanceType<typeof ElForm>>()
+const formRef = ref(null)
 
 const props = withDefaults(
   defineProps<{
@@ -135,11 +162,8 @@ const props = withDefaults(
   },
 )
 
-const formData = reactive({
-  // name: '',
-  // date: '',
-  // address: '',
-})
+const formData = reactive({})
+let rules = reactive({})
 
 const emit = defineEmits(['update:modelValue', 'queryForm', 'resetForm'])
 
@@ -148,7 +172,52 @@ const emit = defineEmits(['update:modelValue', 'queryForm', 'resetForm'])
 //   emit('update:modelValue', { ...props.modelValue, [field]: val })
 // }
 
+const handleClick = (formName, event: string, cb) => {
+  console.log('formName', formName)
+  if (event == 'submit') {
+    searchData(formName, cb)
+  } else if (event == 'reset') {
+    formName.resetFields()
+  } else {
+    cb && cb()
+  }
+}
+
+const searchData = (formName: FormInstance, cb) => {
+  formName.validate((valid) => {
+    if (valid) {
+      cb && cb(formData)
+    } else {
+    }
+  })
+}
 const handleChange = () => {}
+
+/**
+ * @description: 初始化表单字段
+ * @return {*} 对应字段 对应数据类型
+ */
+const formInit = () => {
+  props.data.items.forEach((i) => {
+    switch (i.type) {
+      case 'checkbox':
+        if (i.default) {
+          formData[i.prop] = i.default
+        } else {
+          formData[i.prop] = []
+        }
+        break
+      case 'switch':
+        formData[i.prop] = false
+        break
+      default:
+        formData[i.prop] = i.default
+        break
+    }
+    rules = props.data.rules
+  })
+}
+formInit()
 </script>
 
 <style lang="less" scoped>

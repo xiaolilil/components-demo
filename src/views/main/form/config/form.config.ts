@@ -8,6 +8,7 @@ export const formConfig: ISearchForm = {
       type: 'input',
       width: '200px',
       placeholder: '请输入姓名',
+      default: 'xxx',
     },
     {
       label: '状态',
@@ -19,11 +20,13 @@ export const formConfig: ISearchForm = {
         { label: '在线', value: 'true' },
         { label: '下线', value: 'false' },
       ],
+      default: 'false',
     },
     {
       label: '开关',
       prop: 'open',
       type: 'switch',
+      default: false,
     },
     {
       label: '活动',
@@ -35,6 +38,7 @@ export const formConfig: ISearchForm = {
         { label: '看电影', value: '看电影' },
         { label: '打球', value: '打球' },
       ],
+      default: ['k歌'],
     },
     {
       label: '单选测试',
@@ -44,6 +48,7 @@ export const formConfig: ISearchForm = {
         { label: '单选a', value: 'a' },
         { label: '单选b', value: 'b' },
       ],
+      default: 'a',
     },
     {
       label: '文本域描述',
@@ -51,6 +56,7 @@ export const formConfig: ISearchForm = {
       type: 'textarea',
       width: '300px',
       placeholder: '请填写描述',
+      default: '',
     },
     {
       label: '请选择地址',
@@ -326,6 +332,7 @@ export const formConfig: ISearchForm = {
           ],
         },
       ],
+      default: '',
     },
     {
       label: '日期',
@@ -333,14 +340,18 @@ export const formConfig: ISearchForm = {
       type: 'date',
       width: '300px',
       placeholder: '请选择日期',
+      default: '2022-10-19',
+      format: 'YYYY-MM-DD',
     },
     {
       label: '时间范围',
-      prop: 'dobiletime',
+      prop: 'dobuletime',
       type: 'time',
       span: 12,
       placeholder: '请选择时间范围',
       isRange: true,
+      default: '',
+      format: 'HH:mm:ss',
     },
 
     {
@@ -350,6 +361,8 @@ export const formConfig: ISearchForm = {
       span: 12,
       placeholder: '请选择时间',
       isRange: false,
+      default: '',
+      format: 'HH:mm:ss',
     },
     {
       label: '日期时间',
@@ -357,6 +370,107 @@ export const formConfig: ISearchForm = {
       type: 'datetime',
       span: 12,
       placeholder: '请选择日期时间',
+      default: '',
+      format: 'YYYY-MM-DD HH:mm:ss',
     },
   ],
+  btns: [
+    {
+      label: '搜索',
+      type: 'primary',
+      event: 'submit',
+      cbFn: (data?: any) => {
+        console.log('data', data)
+      },
+    },
+    {
+      label: '重置',
+      type: 'info',
+      event: 'reset',
+      cbFn: () => {
+        console.log('reset')
+      },
+    },
+    { label: '其他', type: 'warning' },
+  ],
+  rules: {
+    name: [
+      {
+        required: true,
+        message: 'Please input Activity name',
+        trigger: 'blur',
+      },
+      { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+    ],
+    state: [
+      {
+        required: true,
+        message: 'Please select Activity zone',
+        trigger: 'change',
+      },
+    ],
+    open: [
+      {
+        required: true,
+        message: 'Please select Activity count',
+        trigger: 'change',
+      },
+    ],
+    activies: [
+      {
+        required: true,
+        message: 'Please pick a date',
+        trigger: 'change',
+      },
+    ],
+    singl: [
+      {
+        required: true,
+        message: 'Please pick a time',
+        trigger: 'change',
+      },
+    ],
+    desc: [
+      {
+        required: true,
+        message: 'Please select at least one activity type',
+        trigger: 'change',
+      },
+    ],
+    address: [
+      {
+        required: true,
+        message: 'Please select activity resource',
+        trigger: 'change',
+      },
+    ],
+    date: [
+      {
+        required: true,
+        message: 'Please input activity form',
+        trigger: 'blur',
+      },
+    ],
+    dobuletime: [
+      {
+        required: true,
+        message: 'Please input activity form',
+        trigger: 'blur',
+      },
+    ],
+    times: [
+      {
+        required: true,
+        message: 'Please input activity form',
+        trigger: 'blur',
+      },
+    ],
+    datetime: [
+      {
+        required: true,
+        message: 'Please input activity form',
+        trigger: 'blur',
+      },
+    ],
+  },
 }
