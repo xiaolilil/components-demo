@@ -7,13 +7,12 @@
       center
       destroy-on-close
     >
-      sadasdsadsadsa
-      <!-- <search-form
-        v-bind="dialogConfig"
-        v-model="dialogData"
-        :form-width="formWidth"
-      ></search-form> -->
-      <Form :data="dialogConfig"></Form>
+      <!-- v-model="dialogData" -->
+      <Form
+        ref="comFormRef"
+        :default-info="dialogData"
+        :data="dialogConfig"
+      ></Form>
       <slot></slot>
       <template #footer>
         <span class="dialog-footer">
@@ -26,9 +25,11 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import Form from '@/components/form/form.vue'
 import { ISearchForm } from '@/types'
+import { useFormSearch } from '@/hooks/useFormSearch'
+
 const props = withDefaults(
   defineProps<{
     title: string
@@ -38,11 +39,27 @@ const props = withDefaults(
   {},
 )
 
+const [comFormRef, handleReset, handleQuery] = useFormSearch()
+
 const dialogVisible = ref(false)
+const dialogData = ref<any>({})
+
+watch(
+  () => props.defaultInfo,
+  (n) => {
+    for (const item of props.dialogConfig.items) {
+      dialogData.value[`${item.prop}`] = n[`${item.prop}`]
+    }
+    console.log('dialogData.value', dialogData.value)
+  },
+)
+
 // const emits = defineEmits(['updateDialog'])
 
 const handleConfim = () => {
   dialogVisible.value = false
+  // comFormRef.value.formData
+  // console.log('comFormRef.value.formData', comFormRef.value.formData)
   // 区分是新建点击的确定还是编辑点击的确定
   // if (Object.keys(props.defaultInfo).length) {
   // 有值是编辑

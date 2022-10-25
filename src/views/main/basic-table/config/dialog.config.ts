@@ -10,10 +10,10 @@ export const dialogConfig: ISearchForm = {
       placeholder: '请输入姓名',
     },
     {
-      field: 'mobile',
+      prop: 'address',
       type: 'input',
-      label: '手机号',
-      placeholder: '请输入手机号',
+      label: '地址',
+      placeholder: '请输入地址',
     },
   ],
 }

@@ -5,7 +5,12 @@
     </div>
     <br />
 
-    <el-table :data="tableData" border style="width: 100%">
+    <el-table
+      :data="tableData"
+      border
+      style="width: 100%"
+      :header-cell-class-name="headerName"
+    >
       <el-table-column
         v-if="showSelectColumn"
         type="selection"
@@ -52,10 +57,15 @@ const props = withDefaults(
     showIndexColumn: boolean
     showSelectColumn: boolean
     propsList: any[]
+    headerName: string
   }>(),
   { tableData: () => [] },
 )
 const emits = defineEmits(['updateDialog', 'handeEdit'])
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+:deep(.table-header) {
+  background-color: #ddd !important;
+}
+</style>

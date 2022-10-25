@@ -4,6 +4,7 @@ export const tableConfig = {
   showIndexColumn: true,
   // 单选 多选
   showSelectColumn: true,
+  headerName: 'table-header',
   propsList: [
     {
       prop: 'date',

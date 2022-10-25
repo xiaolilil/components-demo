@@ -1,5 +1,7 @@
 type IFormType = 'input' | 'password' | 'select' | 'datepicker'
 
+export type CallbackFn = (item?: any) => void
+
 export interface IDateType {
   dataCount: number[]
   currYear: number

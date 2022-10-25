@@ -8,6 +8,7 @@ export const formConfig: ISearchForm = {
       type: 'input',
       width: '200px',
       placeholder: '请输入姓名',
+      default: '',
     },
     {
       label: '手机号',
@@ -15,6 +16,7 @@ export const formConfig: ISearchForm = {
       type: 'input',
       width: '200px',
       placeholder: '请输入手机号',
+      default: '',
     },
     {
       label: '状态',
@@ -26,11 +28,13 @@ export const formConfig: ISearchForm = {
         { label: '在线', value: 'true' },
         { label: '下线', value: 'false' },
       ],
+      default: '',
     },
     {
       label: '开关',
       prop: 'open',
       type: 'switch',
+      default: false,
     },
     {
       label: '活动',
@@ -42,6 +46,7 @@ export const formConfig: ISearchForm = {
         { label: '看电影', value: '看电影' },
         { label: '打球', value: '打球' },
       ],
+      default: [],
     },
     {
       label: '单选测试',
@@ -51,6 +56,7 @@ export const formConfig: ISearchForm = {
         { label: '单选a', value: 'a' },
         { label: '单选b', value: 'b' },
       ],
+      default: '',
     },
     {
       label: '文本域描述',
@@ -58,6 +64,25 @@ export const formConfig: ISearchForm = {
       type: 'textarea',
       width: '300px',
       placeholder: '请填写描述',
+      default: '',
+    },
+  ],
+  btns: [
+    {
+      label: '搜索',
+      type: 'primary',
+      event: 'submit',
+      cbFn: (data?: any) => {
+        console.log('data', data)
+      },
+    },
+    {
+      label: '重置',
+      type: 'info',
+      event: 'reset',
+      cbFn: () => {
+        console.log('reset')
+      },
     },
   ],
 }

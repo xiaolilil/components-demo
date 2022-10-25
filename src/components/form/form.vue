@@ -1,7 +1,7 @@
 <template>
   <div class="form">
     <div class="header">
-      <slot name="header">表单组件</slot>
+      <slot name="header"></slot>
     </div>
 
     <el-form
@@ -16,13 +16,19 @@
         v-for="(v, i) in data.items"
         :key="i"
       >
+        <!-- v-model="formData[v.prop]" -->
+
+        <!-- {{ modelValue[`${v.prop}` as keyof IUser] }} -->
+        <!-- {{ modelValue.name }}  -->
+        <!-- {{ modelValue[`${v.prop}`] }} -->
+        <!-- :model-value="modelValue[(`${v.prop}`)  as keyof IUser]" -->
+        <!-- {{ modelValue }} -->
         <el-input
           :style="{ width: v.width }"
           v-model="formData[v.prop]"
           v-if="v.type == 'input'"
           :placeholder="v.placeholder"
         ></el-input>
-
         <el-select
           v-model="formData[v.prop]"
           v-if="v.type == 'select'"
@@ -128,55 +134,47 @@
 </template>
 
 <script lang="ts" setup>
-import { IFormItem, ISearchForm } from '@/types'
-import { reactive, ref } from 'vue'
+import { IFormItem, ISearchForm, CallbackFn } from '@/types'
+import { reactive, ref, watch, onBeforeMount } from 'vue'
 import type { FormInstance, ElForm } from 'element-plus'
+import { IUser } from '@/types/views'
 
 // const formRef = ref<InstanceType<typeof ElForm>>()
-const formRef = ref(null)
+const formRef = ref<FormInstance>()
 
 const props = withDefaults(
   defineProps<{
-    // modelValue?: any
-    // formItems: IFormItem[]
+    modelValue?: IUser
     labelWidth?: string
-    // itemStyle?: object
-    // colLayout?: object
-    // formWidth?: number
     data: ISearchForm
+    defaultInfo?: object
   }>(),
-  {
-    // labelWidth: '100px',
-    // itemStyle: () => {
-    //   return { padding: '10px 10px' }
-    // },
-    // colLayout: () => {
-    //   return {
-    //     xl: 6,
-    //     lg: 8,
-    //     md: 12,
-    //     sm: 24,
-    //     xs: 24,
-    //   }
-    // },
-  },
+  {},
 )
 
 const formData = reactive({})
 let rules = reactive({})
 
-const emit = defineEmits(['update:modelValue', 'queryForm', 'resetForm'])
+watch(
+  () => props.modelValue,
+  (n) => {
+    console.log('n', n)
+  },
+)
+
+const emits = defineEmits(['update:modelValue', 'queryForm', 'resetForm'])
 
 // 更新数据触发的事件
-// const updataVal = (val: any, field: string) => {
-//   emit('update:modelValue', { ...props.modelValue, [field]: val })
+// const updataVal = (val: any, prop: string) => {
+//   emits('update:modelValue', { ...props.modelValue, [prop]: val })
 // }
-
-const handleClick = (formName, event: string, cb) => {
-  console.log('formName', formName)
+const handleClick = (formName: FormInstance | undefined, event: string, cb) => {
+  if (!formName) return
   if (event == 'submit') {
-    searchData(formName, cb)
+    emits('queryForm', formData)
+    // searchData(formName, cb)
   } else if (event == 'reset') {
+    emits('resetForm')
     formName.resetFields()
   } else {
     cb && cb()
@@ -216,8 +214,22 @@ const formInit = () => {
     }
     rules = props.data.rules
   })
+
+  if (props.defaultInfo) {
+    for (const key in props.defaultInfo) {
+      formData[key] = props.defaultInfo[key]
+    }
+  }
 }
-formInit()
+
+onBeforeMount(() => {
+  formInit()
+})
+
+defineExpose({
+  formRef,
+  formData,
+})
 </script>
 
 <style lang="less" scoped>
@@ -233,7 +245,7 @@ formInit()
   }
   .footer {
     width: 100%;
-    margin-left: 50%;
+    // margin-left: 50%;
   }
 }
 </style>

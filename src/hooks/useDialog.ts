@@ -25,6 +25,7 @@ export function useDialog(
   }
 
   const handleEditData = (item: any) => {
+    console.log('item', item)
     title.value = `编辑${name}`
     defaultInfo.value = { ...item }
     if (dialogRef.value) {
