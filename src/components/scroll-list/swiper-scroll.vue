@@ -14,14 +14,25 @@
       style="height: 240px"
     >
       <swiper-slide v-for="(item, index) in data.list2" :key="index">
-        <li class="listItem type1">
-          <a style="color: #000" :title="item.title">{{ item.title }}</a>
-        </li>
+        <table>
+          <tbody>
+            <tr>
+              <td>{{ item.sn }}</td>
+              <td class="title">{{ item.TI_place }}</td>
+              <td>{{ item.TI_type }}</td>
+              <td>{{ item.TI_info }}</td>
+              <td class="time">{{ item.TI_UPTime }}</td>
+              <td>{{ item.TI_state }}</td>
+            </tr>
+          </tbody>
+        </table>
       </swiper-slide>
     </swiper>
   </div>
 </template>
-
+<!-- <li class="listItem type1">
+  <a style="color: #000" :title="item.title">{{ item.title }}</a>
+</li> -->
 <script lang="ts" setup>
 import { getCurrentInstance, onMounted, ref, reactive } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -31,36 +42,70 @@ import 'swiper/css'
 const data = ref({
   list2: [
     {
-      grand: '1',
-      title: '网站 ICP8 备案已过1，需尽快更新网站备案已66...',
-      time: '2022/04/13',
+      sn: '01',
+      TI_place: 'A部件',
+      TI_type: '50%',
+      TI_info: '50°',
+      TI_UPTime: '2021-10-01 09:23:42',
+      TI_state: '未处理',
     },
     {
-      grand: '2',
-      title: '网站 ICP7 备案已过期，需尽快更新网站备案已55...',
-      time: '2022/04/13',
+      sn: '02',
+      TI_place: 'b部件',
+      TI_type: '60%',
+      TI_info: '70°',
+      TI_UPTime: '2021-10-01 09:23:42',
+      TI_state: '未处理',
     },
     {
-      grand: '3',
-      title: '网站 ICP6 备案已过1，需尽快更新网站备案已44...',
-      time: '2022/11/13',
+      sn: '03',
+      TI_place: 'c部件',
+      TI_type: '70%',
+      TI_info: '550°',
+      TI_UPTime: '2021-10-01 09:23:42',
+      TI_state: '未处理',
     },
     {
-      grand: '4',
-      title: '网站 ICP45 备案已过期，需尽快更新网站备案已33...',
-      time: '2022/12/13',
+      sn: '04',
+      TI_place: 'd部件',
+      TI_type: '80%',
+      TI_info: '40°',
+      TI_UPTime: '2021-10-01 09:23:42',
+      TI_state: '未处理',
     },
     {
-      grand: '5',
-      title: '网站 ICP3 备案已过1，需尽快更新网站备案已11...',
-      time: '2022/13/13',
+      sn: '05',
+      TI_place: 'e部件',
+      TI_type: '90%',
+      TI_info: '60°',
+      TI_UPTime: '2021-10-01 09:23:42',
+      TI_state: '未处理',
     },
     {
-      grand: '6',
-      title: '网站 ICP2 备案已过期，需尽快更新网站备案已22...',
-      time: '2022/14/13',
+      sn: '06',
+      TI_place: 'f部件',
+      TI_type: '60%',
+      TI_info: '67°',
+      TI_UPTime: '2021-10-01 09:23:42',
+      TI_state: '未处理',
     },
   ],
   modules: [Autoplay],
 })
 </script>
+
+<style lang="less">
+#swiperList2 {
+  // width: 600px;
+  tr {
+    background-color: cadetblue;
+  }
+  td {
+    width: 120px;
+    float: left;
+  }
+  .time {
+    width: 300px;
+  }
+}
+</style>

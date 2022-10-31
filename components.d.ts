@@ -43,7 +43,11 @@ declare module '@vue/runtime-core' {
     NpmScroll: typeof import('./src/components/scroll-list/npm-scroll.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScrollCss: typeof import('./src/components/scroll-list/scroll-css.vue')['default']
     ScrollList: typeof import('./src/components/scroll-list/scroll-list.vue')['default']
+    ScrollTable: typeof import('./src/components/scroll-list/scroll-table.vue')['default']
     SwiperScroll: typeof import('./src/components/scroll-list/swiper-scroll.vue')['default']
+    SwiperTest: typeof import('./src/components/scroll-list/swiper-test.vue')['default']
+    Test1: typeof import('./src/components/scroll-list/test1.vue')['default']
   }
 }

@@ -1,16 +1,70 @@
 <template>
   <div class="list">
-    <swiper-scroll></swiper-scroll>
+    <!-- <swiper-scroll></swiper-scroll> -->
+    <!-- <Test1></Test1> -->
+    <!-- <scroll-css></scroll-css> -->
+    <scroll-table :data="data" />
   </div>
 </template>
 
 <script lang="ts" setup>
-// import ScrollList from '@/components/scroll-list/scroll-list.vue'
-// import ScrollList from '@/components/scroll-list/demo2.vue'
-// import NpmScroll from '@/components/scroll-list/npm-scroll.vue'
-import SwiperScroll from '@/components/scroll-list/swiper-scroll.vue'
+import ScrollTable from '@/components/scroll-list/scroll-table.vue'
+// import SwiperScroll from '@/components/scroll-list/swiper-scroll.vue'
+// import ScrollCss from '@/components/scroll-list/scroll-css.vue'
+// import Test1 from '@/components/scroll-list/test1.vue
 
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+
+const data = reactive([
+  {
+    sn: '01',
+    TI_place: 'A部件',
+    TI_type: '50%',
+    TI_info: '50°',
+    TI_UPTime: '2021-10-01 09:23:42',
+    TI_state: '未处理',
+  },
+  {
+    sn: '02',
+    TI_place: 'b部件',
+    TI_type: '60%',
+    TI_info: '70°',
+    TI_UPTime: '2021-10-01 09:23:42',
+    TI_state: '未处理',
+  },
+  {
+    sn: '03',
+    TI_place: 'c部件',
+    TI_type: '70%',
+    TI_info: '550°',
+    TI_UPTime: '2021-10-01 09:23:42',
+    TI_state: '未处理',
+  },
+  {
+    sn: '04',
+    TI_place: 'd部件',
+    TI_type: '80%',
+    TI_info: '40°',
+    TI_UPTime: '2021-10-01 09:23:42',
+    TI_state: '未处理',
+  },
+  {
+    sn: '05',
+    TI_place: 'e部件',
+    TI_type: '90%',
+    TI_info: '60°',
+    TI_UPTime: '2021-10-01 09:23:42',
+    TI_state: '未处理',
+  },
+  {
+    sn: '06',
+    TI_place: 'f部件',
+    TI_type: '60%',
+    TI_info: '67°',
+    TI_UPTime: '2021-10-01 09:23:42',
+    TI_state: '未处理',
+  },
+])
 
 const riskList = ref<any>([
   {
