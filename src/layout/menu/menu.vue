@@ -22,6 +22,15 @@
       <el-menu-item index="4">
         <span @click="changeView('form')">基础表单</span>
       </el-menu-item>
+      <el-menu-item index="5">
+        <span @click="changeView('animate')">动画</span>
+      </el-menu-item>
+      <el-menu-item index="6">
+        <span @click="changeView('tree')">树形组件</span>
+      </el-menu-item>
+      <el-menu-item index="7">
+        <span @click="changeView('map')">高德地图组件</span>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>

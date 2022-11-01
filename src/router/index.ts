@@ -40,6 +40,24 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '基础表单' },
         component: () => import('@/views/main/form/index.vue'),
       },
+      {
+        path: 'animate',
+        name: 'animate',
+        meta: { title: '动画' },
+        component: () => import('@/views/main/animate/index.vue'),
+      },
+      {
+        path: 'tree',
+        name: 'tree',
+        meta: { title: '树形组件' },
+        component: () => import('@/views/main/tree/index.vue'),
+      },
+      {
+        path: 'map',
+        name: 'map',
+        meta: { title: '地图' },
+        component: () => import('@/views/main/map/index.vue'),
+      },
     ],
   },
   {
