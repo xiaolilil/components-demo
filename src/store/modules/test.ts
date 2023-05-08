@@ -11,6 +11,8 @@ const useTestStore = defineStore({
     return {
       search_id: '',
       input: '',
+      scrollTo: 0,
+      isHavaScroll: false,
     }
   },
   getters: {},
@@ -18,6 +20,15 @@ const useTestStore = defineStore({
     saveData(payload: any) {
       this.search_id = payload.search_id
       this.input = payload.ipt
+    },
+    setScrollTo(val: number) {
+      this.scrollTo = val
+      this.isHavaScroll = true
+
+      // console.log('this.isHavaScroll', this.isHavaScroll)
+    },
+    setFlag(bol: boolean) {
+      this.isHavaScroll = bol
     },
   },
 })

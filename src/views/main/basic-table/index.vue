@@ -1,5 +1,6 @@
 <template>
-  <div class="table">
+  <div class="table" ref="tb">
+    <button @click="scrollFn">滚动到底部</button>
     <Form
       :data="formConfig"
       ref="comFormRef"
@@ -14,13 +15,31 @@
       </template> -->
     </Form>
 
+    <hr />
+
+    <div class="xls">
+      <span>导入</span>
+      <input
+        type="file"
+        accept=".xls,.xlsx"
+        class="upload-file"
+        ref="uploadImgBtn"
+        @change="Excel($event)"
+      />
+    </div>
+
+    <hr />
+
     <basic-table
       :tableData="tableData"
       v-bind="tableConfig"
       @handleEdit="handleEditData"
+      class="table"
+      id="testTable"
     >
       <template #toolbarHandler>
         <el-button type="primary" @click="handleAddData">新建用户</el-button>
+        <el-button type="warning" @click="handExport">导出表格</el-button>
       </template>
 
       <!-- <template #name="scope">
@@ -39,6 +58,12 @@
         >
       </template>
     </basic-table>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <div id="box" class="bg-amber-300">测试底部</div>
   </div>
 
   <Dialog
@@ -64,7 +89,150 @@ import { formConfig } from './config/form.config'
 import { useDialog } from '@/hooks/useDialog'
 import { useFormSearch } from '@/hooks/useFormSearch'
 
-import { reactive, ref } from 'vue'
+import { reactive, ref, nextTick, defineExpose } from 'vue'
+import usePinia from '@/store'
+import { scrollTo } from '@/utils/tools'
+// import { exportExcel } from '@/utils/exportData'
+import { exportExcel } from '@/utils/exportExcel'
+import * as XLSX from 'xlsx'
+import XLSXS from 'xlsx-style'
+import FileSaver from 'file-saver'
+
+import { ElMessageBox } from 'element-plus'
+import 'element-plus/theme-chalk/el-message-box.css'
+const { test } = usePinia()
+const tb = ref<HTMLElement>()
+
+let tableData: any[] = [
+  {
+    date: '2016-05-03',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-12-02',
+    name: 'Tom1',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-04',
+    name: 'Tom2',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2020-05-01',
+    name: 'Tom3',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+]
+
+let titleList = [
+  {
+    label: '时间',
+    prop: 'date',
+    width: '200%',
+  },
+  {
+    label: '姓名',
+    prop: 'name',
+    width: '15%',
+  },
+  {
+    label: '地址',
+    prop: 'address',
+    width: '240%',
+  },
+]
+
+// 导出
+const handExport = () => {
+  ElMessageBox.confirm('是否确认导出全部数据?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+  }).then(() => {
+    const allTable = [
+      {
+        eleName: '#testTable', //要导出的表格id
+        title: '测试导出表格', //sheet页名称
+      },
+      // {
+      //   eleName: '#trial',
+      //   title: '試算平衡表',
+      // },
+    ]
+    exportExcel(allTable, '测试导出表格')
+  })
+  // exportExcel(titleList, tableData, '测试导出列表', '')
+}
+
+// 导入
+const Excel = (w: any) => {
+  const files = w.target.files
+  if (files.length <= 0) {
+    return false
+  } else if (!/\.(xls|xlsx)$/.test(files[0].name.toLowerCase())) {
+    return false
+  }
+  // 读取表格
+  const fileReader = new FileReader()
+  fileReader.onload = (ev: any) => {
+    const workbook = XLSX.read(ev.target.result, {
+      type: 'binary',
+    })
+    const wsname = workbook.SheetNames[0]
+    const xl = XLSX.utils.sheet_to_json(workbook.Sheets[wsname])
+    // dealExcel(xl) //...对数据进行自己需要的操作
+    // tableData.value = xl
+    // tableData = [...tableData, ...xl]
+    // console.log('xl', xl)
+    tableData = [...tableData, ...transitionExcel(xl)]
+    console.log('tableData', tableData)
+  }
+  fileReader.readAsBinaryString(files[0])
+}
+
+function transitionExcel(xl: any) {
+  let keymap = {
+    // 根据所要导入的文件转换开头
+    时间: 'date',
+    姓名: 'name',
+    地址: 'address',
+  }
+  const zhKey = Object.keys(xl[0])
+  // console.log('zhKey', zhKey) // ['#', '时间', '姓名', '地址', '操作']
+
+  return xl.map((v: any) => {
+    const obj = {}
+    zhKey.forEach((i: any) => {
+      const enkey = keymap[i]
+      if (enkey) obj[enkey] = v[i]
+    })
+
+    return obj
+  })
+}
+
+const distance = ref<number>()
+const scrollFn = () => {
+  // scrollTo('box')
+
+  nextTick(() => {
+    ;(distance.value =
+      document.querySelector('#box')!.getBoundingClientRect().top +
+      window.scrollY -
+      100),
+      test.setScrollTo(distance.value)
+    window.scrollTo({ top: 300 })
+    if (tb.value) {
+      tb.value.scrollTop = 300
+    }
+  })
+}
+
+defineExpose({
+  scrollFn,
+})
 
 // const formData = reactive({
 //   labelWidth: '120px',
@@ -151,28 +319,6 @@ import { reactive, ref } from 'vue'
 // })
 
 // 表格数据
-const tableData = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-12-02',
-    name: 'Tom1',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom2',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2020-05-01',
-    name: 'Tom3',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-]
 
 const { title, defaultInfo, dialogRef, handleAddData, handleEditData } =
   useDialog('用户')
@@ -185,6 +331,8 @@ const handDelete = (obj: object) => {
 </script>
 
 <style lang="less" scoped>
-.btns {
+.table {
+  height: auto;
+  overflow: auto;
 }
 </style>
